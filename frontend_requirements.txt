@@ -1,0 +1,10 @@
+react
+react-dom
+react-router-dom
+axios
+jwt-decode
+redux
+react-redux
+@reduxjs/toolkit
+socket.io-client
+styled-components
