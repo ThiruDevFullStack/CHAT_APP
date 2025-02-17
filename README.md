@@ -1,128 +1,143 @@
-# ChatRoomApp
+# 📌 Chat Application
 
-## Overview
-ChatRoomApp is a real-time chat application built using Django and React. It provides JWT-based authentication, WebSockets (Django Channels) for real-time messaging, and stores chat history in a MySQL database. Users can create chat rooms, send and receive messages in real-time, and view active participants.
+A real-time chat application built using **Django (backend)** and **React (frontend)** with WebSockets, JWT authentication, and MySQL database.
 
-## Features
-- **Authentication:** Users can sign up and log in using JWT authentication.
-- **Chat Rooms:** Users can create new chat rooms or join existing ones.
-- **Real-Time Messaging:** Messages are sent and received instantly using WebSockets.
-- **Chat History:** Messages are stored in the database and can be retrieved anytime.
-- **Active User Tracking:** Displays logged-in users in a chat room.
-- **Frontend:** React-based UI for creating and joining chat rooms.
-- **Backend:** Django handles authentication, message storage, and WebSockets for real-time communication.
-- **Error Handling:** Basic input validation and error messages.
+## 📂 Project Structure
 
-## Technologies Used
-### Backend:
-- Django
-- Django REST Framework (DRF)
-- Django Channels (WebSockets)
-- MySQL
-- JWT Authentication
-
-### Frontend:
-- React.js
-- HTML5, CSS3, JavaScript
-- WebSockets API
-
-## Project Structure
 ```
-ChatRoomApp/
-├── backend/
-│   ├── chat/
-│   ├── accounts/
-│   ├── config/
-│   ├── manage.py
-│   ├── requirements.txt
-│   ├── db.sqlite3 (if using SQLite for testing)
+CHAT_APP/
+│── backend/
+│   │── backend/
+│   │   ├── __init__.py
+│   │   ├── asgi.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── wsgi.py
+│   │── chat/
+│   │   ├── consumers.py
+│   │   ├── models.py
+│   │   ├── routing.py
+│   │   ├── serializers.py
+│   │   ├── urls.py
+│   │   ├── views.py
+│   │── users/
+│   │   ├── models.py
+│   │   ├── urls.py
+│   │   ├── views.py
+│   │── env/ (Virtual Environment)
+│   │── db.sqlite3
+│   │── manage.py
 │
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
+│── frontend/
+│   │── src/
+│   │   ├── Components/
+│   │   │   ├── ChatPage.js
+│   │   │   ├── ChatRoomCreate.js
+│   │   │   ├── LoginPage.js
+│   │   │   ├── SignUpPage.js
+│   │   ├── Styles/
+│   │   │   ├── App.css
 │   │   ├── App.js
 │   │   ├── index.js
-│   ├── public/
-│   ├── package.json
-│
-├── README.md
+│   │── package.json
+│   │── README.md
 ```
 
-## Setup Instructions
-### Backend Setup
-1. Clone the repository:
+---
+
+## 🚀 Features
+- User authentication (Signup/Login) using **JWT**.
+- Real-time chat with **WebSockets (Django Channels)**.
+- Create and join chat rooms dynamically.
+- Display active users in a chat room.
+- Store chat messages and history in the database.
+
+---
+
+## 🔧 Backend Setup (Django)
+
+1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/ChatRoomApp.git
-   cd ChatRoomApp/backend
+   git clone https://github.com/your-repo.git
+   cd CHAT_APP/backend
    ```
-2. Create a virtual environment and activate it:
+2. **Create and activate virtual environment:**
    ```sh
-   python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   python -m venv env
+   source env/bin/activate  # On Windows: env\Scripts\activate
    ```
-3. Install dependencies:
+3. **Install dependencies:**
    ```sh
    pip install -r requirements.txt
    ```
-4. Run migrations:
+4. **Apply database migrations:**
    ```sh
    python manage.py migrate
    ```
-5. Create a superuser:
-   ```sh
-   python manage.py createsuperuser
-   ```
-6. Start the Django server:
+5. **Run the server:**
    ```sh
    python manage.py runserver
    ```
 
-### Frontend Setup
-1. Navigate to the frontend folder:
+---
+
+## 🎨 Frontend Setup (React)
+
+1. **Navigate to frontend directory:**
    ```sh
-   cd ../frontend
+   cd CHAT_APP/frontend
    ```
-2. Install dependencies:
+2. **Install dependencies:**
    ```sh
    npm install
    ```
-3. Start the React development server:
+3. **Start the React development server:**
    ```sh
    npm start
    ```
 
-## Usage
-1. Register and log in to the app.
-2. Create a new chat room or join an existing one.
-3. Start sending and receiving real-time messages.
-4. View active users in the chat room.
+---
 
-## API Endpoints
+## 📡 WebSockets Setup
+Ensure Django Channels is installed and configured properly in `asgi.py`, `routing.py`, and `consumers.py`.
+
+---
+
+## 📜 API Endpoints
+### **Authentication (JWT)**
 | Method | Endpoint | Description |
-|--------|----------|------------|
-| POST | `/api/auth/register/` | User registration |
-| POST | `/api/auth/login/` | User login (JWT token) |
-| GET | `/api/chat/rooms/` | Get available chat rooms |
-| POST | `/api/chat/rooms/create/` | Create a new chat room |
-| GET | `/api/chat/rooms/{room_id}/messages/` | Get chat history |
+|--------|---------|-------------|
+| POST | `/api/users/signup/` | Register a new user |
+| POST | `/api/users/login/` | Login and get JWT token |
+| GET  | `/api/users/profile/` | Get logged-in user details |
 
-## WebSockets
-The chat feature uses WebSockets for real-time messaging. WebSocket connections are established at:
-```
-ws://localhost:8000/ws/chat/{room_name}/
-```
-Messages sent through WebSockets are automatically broadcasted to all participants in the room.
+### **Chat Functionalities**
+| Method | Endpoint | Description |
+|--------|---------|-------------|
+| GET  | `/api/chat/rooms/` | Get all chat rooms |
+| POST | `/api/chat/rooms/` | Create a new chat room |
+| GET  | `/api/chat/messages/{room_id}/` | Get chat history |
 
-## Future Enhancements
-- Add typing indicators
-- Implement message reactions (likes, emojis)
-- Support for private messaging
-- UI improvements with better design
+---
 
-## License
+## 🛠️ Technologies Used
+- **Backend:** Django, Django REST Framework, Django Channels, WebSockets, JWT
+- **Frontend:** React.js, WebSockets, CSS
+- **Database:** MySQL / SQLite
+
+---
+
+## 📌 To-Do
+- Improve UI design
+- Implement notifications for new messages
+- Add file sharing functionality
+
+---
+
+## 🤝 Contributing
+Feel free to submit issues or pull requests for improvements.
+
+---
+
+## 📄 License
 This project is licensed under the MIT License.
-
-## Contributors
-- **Thirumurugan** (Developer)
-
